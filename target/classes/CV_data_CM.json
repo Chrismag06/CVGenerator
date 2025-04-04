@@ -1,0 +1,136 @@
+{
+  "nom": "Christophe Maggiore",
+  "titre": "Développeur Informatique | Testeur Logiciel",
+  "specialisation": "Business Central / Dynamics NAV",
+  "description": "Après plusieurs années d’expérience dans le développement informatique en particulier dans les domaines de la gestion et de la finance, je suis passionné par la création de solutions logicielles innovantes qui favorisent la réussite financière des entreprises tout en répondant à leurs besoins opérationnels. Mon objectif est de mettre mes compétences au service de votre entreprise, et je suis disponible dès maintenant pour rejoindre votre équipe.",
+  "coordonnees": {
+    "email": "christophe.maggiore@libertysurf.fr",
+    "telephone": "06 61 56 83 85",
+    "ville": "Nice"
+  },
+  "permis": "Permis B",
+  "experiences": [
+    {
+      "annee": "2024",
+      "poste": "Développeur JAVA J2EE",
+      "entreprise": "POEC IB Cegos",
+      "taches": [
+        "Web Services",
+        "Développement avec Spring, Angular, TypeScript, Bootstrap",
+        "Participation aux phases de spécifications et de tests",
+        "Accès aux données SQL"
+      ]
+    },
+    {
+      "periode": "2020 - 2023",
+      "poste": "Développeur",
+      "entreprise": "ELYSYS, Monaco",
+      "description": "Société d’édition et de service informatique spécialisé dans l’industrie financière (Télétravail hybride)",
+      "taches": [
+        "Développement d’extensions Microsoft Dynamics 365 Business Central, PowerShell, VBA",
+        "Langage de programmation AL, environnement de développement : Visual Studio Code",
+        "Réalisation de tests automatisés de la solution",
+        "Mise en production et upgrades de la solution"
+      ]
+    },
+    {
+      "periode": "2018 - 2020",
+      "poste": "Développeur",
+      "entreprise": "KEESYSTEM, Monaco",
+      "taches": [
+        "Développement avec FileMaker Pro",
+        "Système de gestion financière de portefeuilles automatisé (Pour gérants indépendants, family offices et banques privées)"
+      ]
+    },
+    {
+      "annee": "2017",
+      "poste": "Développeur",
+      "entreprise": "ALLIGATOR ESN",
+      "taches": [
+        "Sage module logistique, maintenance, corrections, PL-SQL"
+      ]
+    },
+    {
+      "periode": "2004 - 2017",
+      "poste": "Développeur",
+      "entreprise": "ELYSYS, Monaco",
+      "taches": [
+        "Développement MS Dynamics NAV, T-SQL, VBA",
+        "Développement de système de gestion comptable/financière",
+        "Analyse et force de proposition de solutions techniques",
+        "Gestion des tests et de la qualité, maîtrise des releases",
+        "Développement et mise en production de solutions spécifiques pour divers clients",
+        "Expérience sur des projets orientés finance (Banques privées, sociétés de gestion, Family offices)"
+      ]
+    },
+    {
+      "periode": "2002 - 2004",
+      "poste": "Développeur",
+      "entreprise": "BELLE ALLURE Communication, Nice",
+      "taches": [
+        "Développement VB 6.0, et VB.Net",
+        "Logiciels d’aide au diagnostic relooking, gestion des vendeurs et des produits"
+      ]
+    },
+    {
+      "periode": "1999 - 2002",
+      "poste": "Développeur",
+      "entreprise": "SOLSI-CONSEIL, Monaco",
+      "taches": [
+        "Développement VB 6.0, VBA, Access 97 et 2000",
+        "Réalisation d’Add-ons pour une suite logicielle de comptabilité/paye et spécifiques",
+        "Maintenance informatique (installation de logiciels, matériels, réseaux)"
+      ]
+    }
+  ],
+  "competences": {
+    "certifications": [
+      {
+        "nom": "Scrum Developer",
+        "etat": "En cours"
+      },
+      {
+        "nom": "ISTQB Foundation",
+        "etat": "Acquise"
+      }
+    ],
+    "techniques": {
+      "ERP": ["Microsoft Dynamics NAV", "Business Central"],
+      "outils": ["GitHub", "Selenium", "Squash TM", "JUnit5"],
+      "frameworks": ["Spring", "Angular", "Bootstrap"],
+      "langages": ["Java", "TypeScript", "SQL", "Python", "VBA", "AL"],
+      "bases_de_donnees": ["SQL Server", "Access"],
+      "methodologies": ["Agile (Scrum)", "Test-driven development (TDD)"]
+    }
+  },
+  "langues": {
+    "francais": "natif",
+    "anglais": "intermédiaire"
+  },
+  "personnalite": ["Diplomatie", "Autonome", "Dynamique", "Bon relationnel", "Esprit d’équipe"],
+  "formations": [
+    {
+      "annee": "2024",
+      "intitule": "Développeur JAVA J2EE",
+      "organisme": "POEC IB Cegos"
+    },
+    {
+      "annee": "2024",
+      "intitule": "Formation Testeur Logiciel",
+      "organisme": "POEC, Antibes"
+    },
+    {
+      "intitule": "DEUST Informatique, Sciences de l’Homme et de la Société",
+      "organisme": "UFR - Nice - Sophia Antipolis"
+    }
+  ],
+  "centres_interets": [
+    "Natation",
+    "Monopalme",
+    "Théâtre",
+    "Musique",
+    "Lecture",
+    "Voyages (États-Unis, Australie, Costa Rica)",
+    "Conception de sites Web"
+  ]
+}
