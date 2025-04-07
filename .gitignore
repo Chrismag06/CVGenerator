@@ -1,5 +1,6 @@
 **/*.fdb_latexmk
-*.fls
+**/*.fls
 **/*.log
-*.gz
+**/*.gz
 **/*.aux
+**/*.class
