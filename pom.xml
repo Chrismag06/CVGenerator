@@ -13,8 +13,18 @@
 	            <groupId>org.codehaus.mojo</groupId>
 	            <artifactId>exec-maven-plugin</artifactId>
 	            <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
 	            <configuration>
-	                <mainClass>com.example.CvGenerator</mainClass>
+	                <!-- <mainClass>com.example.CvGenerator</mainClass> -->
+                    <!-- <mainClass>com.example.JsonKeysReader</mainClass> -->
+                    <!-- <mainClass>com.example.JsonMapReader</mainClass> -->
+                    <mainClass>com.example.TexReplacer</mainClass>
 	            </configuration>
 	        </plugin>
     	</plugins>

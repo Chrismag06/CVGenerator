@@ -1,2 +1,3 @@
-com\example\CvGenerator.class
 com\example\CvData.class
+com\example\CvGenerator.class
+com\example\JsonKeysReader.class
