@@ -1,4 +1,4 @@
-Feature: Export d'un CV existant
+fonctionalité: je veux pouvoir exporter un CV existant avec un nom de candidat et un nom de CV
 
   Scenario: Export d'un CV existant d'un candidat
     Given un candidat avec les informations suivantes :
