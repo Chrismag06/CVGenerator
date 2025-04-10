@@ -1,4 +1,4 @@
-package com.example;
+package com.example.cv;
 
 import java.util.List;
 

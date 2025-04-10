@@ -1,14 +1,9 @@
-package com.example;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.example.cv;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.Id;
 
 @Entity
 public class Candidat {

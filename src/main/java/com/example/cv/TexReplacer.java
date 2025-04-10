@@ -1,4 +1,4 @@
-package com.example;
+package com.example.cv;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,9 +6,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Map;
 
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+@SpringBootApplication
 public class TexReplacer {
     public static void main(String[] args) throws IOException {
         // Charger le JSON
