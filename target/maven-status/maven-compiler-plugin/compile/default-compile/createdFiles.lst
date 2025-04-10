@@ -1,0 +1,10 @@
+com\example\TexReplacer.class
+com\example\CvData.class
+com\example\Candidat.class
+com\example\CvGenerator.class
+com\example\TexReplacer$1.class
+com\example\JsonMapReader$1.class
+com\example\Coordonnees.class
+com\example\JsonMapReader.class
+com\example\CandidatRepository.class
+com\example\JsonKeysReader.class

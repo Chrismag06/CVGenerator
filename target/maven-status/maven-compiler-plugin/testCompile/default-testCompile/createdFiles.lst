@@ -1,0 +1,4 @@
+com\example\cv\steps\ExportCvSteps.class
+com\example\cv\steps\StepDefinitions.class
+com\example\cv\CucumberTest.class
+com\example\cv\steps\SimpleTestSteps.class
