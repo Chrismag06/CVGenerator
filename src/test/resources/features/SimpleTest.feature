@@ -1,6 +1,6 @@
-Feature: Test d'exportation simple
+Feature: Simple export test
 
-  Scenario: Vérification de base
+  Scenario: Basic verification
     Given un exemple simple
     When une action est effectuée
     Then le résultat attendu est vérifié
