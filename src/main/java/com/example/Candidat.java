@@ -22,8 +22,8 @@ public class Candidat {
     private String email;
     private String telephone;
 
-    @OneToMany(mappedBy = "candidat", cascade = CascadeType.ALL)
-    private List<CV> cvs = new ArrayList<>();
+    // @OneToMany(mappedBy = "candidat", cascade = CascadeType.ALL)
+    // private List<CV> cvs = new ArrayList<>();
 
     // getters, setters, constructeurs
 }

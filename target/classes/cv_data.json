@@ -1,0 +1,14 @@
+{
+    "name": "Jean Dupont",
+    "email": "jean.dupont@example.com",
+    "phone": "+33 6 12 34 56 78",
+    "skills": ["Java", "Spring", "Angular", "SQL"],
+    "experience": [
+        "Développeur Java chez XYZ (2018-2025)",
+        "Consultant IT chez ABC (2015-2018)"
+    ],
+    "education": [
+        "Master en Informatique - Université ABC",
+        "Licence en Informatique - Université XYZ"
+    ]
+}
