@@ -1,8 +1,8 @@
 package com.example.cv.steps;
 
-import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Map;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -18,20 +18,22 @@ public class ExportCvSteps {
   
     @Given("un candidat avec les informations suivantes :")
     public void un_candidat_avec_les_informations_suivantes(Map<String, String> candidatInfo) {
-        this.nomCandidat = candidatInfo.get("nom");
-        this.prenomCandidat = candidatInfo.get("prenom");
+        nomCandidat = candidatInfo.get("nom");
+        prenomCandidat = candidatInfo.get("prenom");
         System.out.println("Candidat: " + prenomCandidat + " " + nomCandidat);
+        // System.out.println("Candidat: prenom nom");
     }
 
     @Given("le nom de CV suivant :")
     public void le_nom_de_cv_suivant(Map<String, String> cvNomInfo) {
         this.nomCV = cvNomInfo.get("nom");
         System.out.println("Nom de CV: " + nomCV);
+        // System.out.println("Nom de CV: nomCV");
     }
 
     @When("je crée un CV intitulé {string}")
     public void je_crée_un_cv_intitulé(String nomFichierCV) {
-        if (nomFichierCV.contains(nomCandidat) && nomFichierCV.contains("Christophe") && nomCV.equals("Business Central")) {
+        if (nomFichierCV.contains(nomCandidat) && nomFichierCV.contains("Christophe") && nomCV.equals("BC")) {
             this.cvExporteAvecSucces = true;
             System.out.println("CV '" + nomFichierCV + "' créé pour " + prenomCandidat + " " + nomCandidat + " avec le nom de CV: " + nomCV);
         } else {
