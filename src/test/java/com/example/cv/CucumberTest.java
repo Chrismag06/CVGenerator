@@ -10,8 +10,10 @@ import org.springframework.test.context.ActiveProfiles;
 
 import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
 
+import com.example.cv.config.TestConfig;
+
 @Suite
-@SpringBootTest(classes = TexReplacer.class) 
+@SpringBootTest(classes = {TestConfig.class,TexReplacer.class}) 
 @ActiveProfiles("test")
 @IncludeEngines("cucumber")
 @SelectClasspathResource("features") // dossier où sont tes .feature dans test/resources
