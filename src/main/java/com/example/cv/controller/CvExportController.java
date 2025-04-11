@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.cv.service.CvExportService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -25,7 +25,7 @@ public class CvExportController {
             return new ResponseEntity<>("Tous les paramètres doivent être fournis.", HttpStatus.BAD_REQUEST);
         }
         try {
-            nomFichierCV = cvExportService.exportCv(nomCandidat, prenomCandidat, nomCV);
+            cvExportService.exportCv(nomCandidat, prenomCandidat, nomCV);
             System.out.println("nomFichierCV:" + nomFichierCV);
             return new ResponseEntity<>("Exportation du CV réussie.", HttpStatus.OK);
         } catch (Exception e) {

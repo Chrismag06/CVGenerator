@@ -1,12 +1,12 @@
 package com.example.cv.steps;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.Map;
-import com.example.cv.service.CvExportService;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import com.example.cv.service.CvExportService;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -39,7 +39,7 @@ public class ExportCvSteps {
     @When("je crée un CV intitulé {string}")
     public void je_crée_un_cv_intitulé(String nomFichierCV) {
         try {
-            nomFichierCV = cvExportService.exportCv(nomCandidat, prenomCandidat, nomCV);
+            cvExportService.exportCv(nomCandidat, prenomCandidat, nomCV);
             this.cvExporteAvecSucces = true;
         } catch (Exception e) {
             this.cvExporteAvecSucces = false;

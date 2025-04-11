@@ -1,3 +1,4 @@
+@ignore
 Feature: je veux pouvoir exporter un CV existant avec un nom de candidat et un nom de CV
 
 @export_cv

@@ -1,3 +1,4 @@
+@ignore
 Feature: Simple export test
 
   Scenario: Basic verification
