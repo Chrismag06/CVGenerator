@@ -1,9 +1,8 @@
 package com.example.cv.steps;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -27,8 +26,21 @@ public class ExportCvControllerSteps {
     @When("je fais une requête POST sur {string} avec les paramètres :")
     public void je_fais_une_requête_post_sur_avec_les_paramètres(String url, DataTable dataTable) {
         Map<String, String> params = dataTable.asMap(String.class, String.class);
-        this.response = restTemplate.postForObject(url, params, String.class);
-        System.out.println("Réponse de l'API : " + response);
+        // Construire l'URL avec les paramètres
+        StringBuilder urlBuilder = new StringBuilder(url);
+        urlBuilder.append("?");
+
+        params.forEach((key, value) -> {
+            urlBuilder.append(key).append("=").append(value).append("&");
+        });
+
+        // Retire le dernier "&"
+        String fullUrl = urlBuilder.substring(0, urlBuilder.length() - 1);
+
+        this.response = restTemplate.postForObject(fullUrl, null, String.class);
+        System.out.println("➡️ POST sur : " + fullUrl);
+        System.out.println("⬅️ Réponse : " + response);
+
     }
 
     @Then("la réponse est {string}")

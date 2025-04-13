@@ -25,6 +25,7 @@ public class ExportCvSteps {
   
     @Given("un candidat avec les informations suivantes :")
     public void un_candidat_avec_les_informations_suivantes(Map<String, String> candidatInfo) {
+        System.out.println("EXECUTION DE EXPORT CV STEPS");
         nomCandidat = candidatInfo.get("nom");
         prenomCandidat = candidatInfo.get("prenom");
         System.out.println("Candidat: " + prenomCandidat + " " + nomCandidat);
