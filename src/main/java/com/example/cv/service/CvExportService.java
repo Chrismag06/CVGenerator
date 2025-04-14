@@ -19,4 +19,11 @@ public class CvExportService {
         nomFichierCV = nomCandidat + "_" + prenomCandidat + "_" + nomCV + ".pdf";
         System.out.println("Exportation du CV pour " + prenomCandidat + " " + nomCandidat + " avec le nom de fichier : " + nomFichierCV);
     }
+
+    public void exportCvCode(String codeCandidat, String nomCV) {
+        System.out.println("Paramètres reçus : " + codeCandidat + ": "  + nomCV);
+        nomFichierCV = codeCandidat + "_"  + nomCV + ".pdf";
+        System.out.println("Exportation du CV pour " + codeCandidat + "  avec le nom de fichier : " + nomFichierCV);
+    }
+
 }

@@ -42,5 +42,23 @@ public class CvExportController {
         }
 
     }
+
+    @PostMapping("/exportCode")
+    public ResponseEntity<String> ExportCVCode(@RequestParam String codeCandidat, @RequestParam  String nomCV) {
+        String nomFichierCV = null;
+        if (codeCandidat == null || nomCV == null) {
+            return new ResponseEntity<>("Tous les paramètres doivent être fournis.", HttpStatus.BAD_REQUEST);
+        }
+        try {
+            System.out.println("codeCandidat:" + codeCandidat);
+            System.out.println("nomCV:" + nomCV);
+            cvExportService.exportCvCode(codeCandidat, nomCV);;
+            System.out.println("nomFichierCV:" + nomFichierCV);
+            return new ResponseEntity<>("Exportation du CV réussie.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Erreur lors de l'exportation du CV : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
     
 }
