@@ -17,6 +17,12 @@ public class Candidat {
     private String email;
     private String telephone;
 
+    public Candidat(String code, String nom, String prenom, String titre) {
+        this.code = code;
+        this.nom = nom;
+        this.prenom = prenom;
+    }
+
     // @OneToMany(mappedBy = "candidat", cascade = CascadeType.ALL)
     // private List<CV> cvs = new ArrayList<>();
 

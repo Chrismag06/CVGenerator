@@ -1,5 +1,8 @@
 package com.example.cv.service;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +30,11 @@ public class CvExportServiceTest {
     @Test
     void testExportTexDepuisCandidat() {
         // Given
-        Candidat candidat = new Candidat("1234", "Christophe", "Maggiore", "Développeur Java");
+        Candidat candidat = new Candidat("1234", "Maggiore", "Christophe", "Développeur Java");
         candidatRepository.save(candidat);
 
         // When
-        String latex = texExportService.exportTex("1234");
+        String latex = cvExportService.exportCvCode("1234", "Développeur Java");
 
         // Then
         assertNotNull(latex);
