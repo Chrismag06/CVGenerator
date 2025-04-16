@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class ImportCVfromJSONSteps {
     private CvImportService cvImportService; 
 
     //private ResponseEntity<String> response;
-    private String response; 
+    private String actualResponse;
     private ImportResult importResult; // Utilisé pour stocker le résultat de l'importation
     private String jsonPayload;
 
@@ -94,60 +95,15 @@ public class ImportCVfromJSONSteps {
     public void j_importe_le_fichier() {
         // Code pour importer le fichier JSON
         importResult = cvImportService.importCvFromJson(jsonPayload);
+        actualResponse = importResult.getMessage(); // Récupérer le message de la réponse
         System.out.println("➡️ Importation du fichier : " + jsonPayload);
-        System.out.println("⬅️ Résultat de l'importation : " + importResult);        
+        System.out.println("⬅️ Résultat de l'importation : " + importResult);     
+
     }
 
-    @Then("la réponse est \"Importation du CV est réussie\" ")
-    public void la_réponse_est() {
-        // Code pour vérifier la réponse
-        assertTrue(this.importResult.getMessage().contains("Importation réussie"), "Importation réussie");
-    }
-   
-    @Then("la réponse est \"Erreur lors de l'importation du fichier JSON mal formaté\"")
-    public void la_réponse_est_erreur_json_mal_formé() {
-        // Code pour vérifier la réponse d'erreur
-    }
-
-    @Then("la réponse est \"Erreur lors de l'importation du fichier fichier introuvable\"")
-    public void la_réponse_est_erreur_fichier_introuvable() {
-        // Code pour vérifier la réponse d'erreur
+    @Then("la réponse est {string}")
+    public void la_réponse_est(String expectedResponse) {
+        Assertions.assertEquals(expectedResponse, actualResponse, "La réponse ne correspond pas à celle attendue.");
     }
     
-    @Then("la réponse est \"Erreur lors de l'importation du fichier - nom de fichier manquant\"")
-    public void la_réponse_est_erreur_nom_fichier_manquant() {
-        // Code pour vérifier la réponse d'erreur
-    }
-
-    @Then("la réponse est \"Erreur : le fichier JSON est vide ou ne contient pas de données valides\"")
-    public void la_réponse_est_erreur_fichier_vide() {
-        // Code pour vérifier la réponse d'erreur
-    }
-    
-    @Then("la réponse est \"Erreur : champ 'nom' manquant dans le fichier JSON\"  ")
-    public void la_réponse_est_erreur_champ_nom_manquant() {
-        // Code pour vérifier la réponse d'erreur
-    }
-    
-    @Then(" la réponse est \"Erreur : ce CV existe déjà\"")
-    public void la_réponse_est_erreur_cv_existe_deja() {
-        // Code pour vérifier la réponse d'erreur
-    }
-
-    @Then("la réponse est \"Erreur : format de fichier non pris en charge\"")
-    public void la_réponse_est_erreur_format_fichier_non_pris_en_charge() {
-        // Code pour vérifier la réponse d'erreur
-    }
-
-    @Then("la réponse est \"Erreur : délai d'import dépassé\"")
-    public void la_réponse_est_erreur_delai_import_depasse() {
-        // Code pour vérifier la réponse d'erreur
-    }
-
-    @Then("la réponse est \"Import partiel : certaines données ont été ignorées\"")
-    public void la_réponse_est_import_partiel() {
-        // Code pour vérifier la réponse d'erreur
-    }
-
-
 }
