@@ -45,7 +45,6 @@ public class ExportCvControllerSteps {
 
     @Then("la réponse est {string}")
     public void la_réponse_est(String expectedResponse) {
-        // assertEquals(expectedResponse, this.response);
         assertTrue(this.response.contains(expectedResponse),"La réponse ne contient pas le message attendu. Réponse obtenue : " + this.response);
 
     }

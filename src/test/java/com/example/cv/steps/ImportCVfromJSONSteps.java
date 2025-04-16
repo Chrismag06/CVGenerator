@@ -1,23 +1,33 @@
 package com.example.cv.steps;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import org.junit.jupiter.api.Timeout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 
+import com.example.cv.service.CvImportService;
+import com.example.cv.dto.ImportResult;
+
+import io.cucumber.java.be.I;
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 public class ImportCVfromJSONSteps {
 
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private ResponseEntity<String> response;
+    @Autowired
+    private CvImportService cvImportService; 
+
+    //private ResponseEntity<String> response;
+    private String response; 
+    private ImportResult importResult; // Utilisé pour stocker le résultat de l'importation
     private String jsonPayload;
 
     @Given("un fichier JSON valide")
@@ -83,11 +93,15 @@ public class ImportCVfromJSONSteps {
     @When("j'importe le fichier")
     public void j_importe_le_fichier() {
         // Code pour importer le fichier JSON
+        importResult = cvImportService.importCvFromJson(jsonPayload);
+        System.out.println("➡️ Importation du fichier : " + jsonPayload);
+        System.out.println("⬅️ Résultat de l'importation : " + importResult);        
     }
 
     @Then("la réponse est \"Importation du CV est réussie\" ")
     public void la_réponse_est() {
         // Code pour vérifier la réponse
+        assertTrue(this.importResult.getMessage().contains("Importation réussie"), "Importation réussie");
     }
    
     @Then("la réponse est \"Erreur lors de l'importation du fichier JSON mal formaté\"")
