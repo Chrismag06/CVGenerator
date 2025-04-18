@@ -7,3 +7,15 @@
 **/*.lst
 **/*.jar
 **/*.prefs
+/target/
+/target/surefire-reports/
+/.idea/
+/.vscode/
+!.vscode/settings.json
+/*.iml
+/logs/
+/*.log
+*.class
+*.jar
+*.war
+*.ear
