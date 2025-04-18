@@ -9,6 +9,11 @@
     }
   ],
 
+  "java.project.sourcePaths": [
+    "src/main/java",
+    "src/test/java"
+  ],
+  
   "java.compile.nullAnalysis.mode": "automatic",
 
   "java.project.referencedLibraries": [
