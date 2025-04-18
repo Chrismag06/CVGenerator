@@ -1,10 +1,22 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive",
-    "java.compile.nullAnalysis.mode": "automatic",
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "C:/Users/chris/.m2/repository/org/projectlombok/lombok/1.18.26/lombok-1.18.26.jar"
-      ],
-      "java.configuration.updateBuildConfiguration": "automatic",
-      "java.compile.nullAnalysis.mode": "automatic"
+  "java.configuration.updateBuildConfiguration": "automatic",
+
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-21",
+      "path": "C:\\Program Files\\Java\\jdk-21", 
+      "default": true
+    }
+  ],
+
+  "java.compile.nullAnalysis.mode": "automatic",
+
+  "java.project.referencedLibraries": [
+    "lib/**/*.jar",
+    "${user.home}/.m2/repository/org/projectlombok/lombok/1.18.26/lombok-1.18.26.jar"
+  ],
+
+  "java.agentlib": [
+    "-javaagent:${user.home}/.m2/repository/org/projectlombok/lombok/1.18.26/lombok-1.18.26.jar"
+  ]
 }
