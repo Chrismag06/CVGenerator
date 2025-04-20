@@ -37,4 +37,25 @@ public class randomNames {
         );
         return json;
     }
+
+    public static String xmlCVAleatoire() {
+        String valString1 = chaineAleatoire(5);
+        String valString2 = chaineAleatoire(5);
+        String valString3 = chaineAleatoire(5);
+        String valString4 = chaineAleatoire(5);
+        String valString5 = chaineAleatoire(5);
+        String xml = """
+            <?xml version="1.0" encoding="UTF-8"?>
+            <%s>
+                <%s>%s</%s>
+                <%s>%s</%s>
+            </%s>
+        """.formatted(
+                valString1,
+                valString2, valString3, valString2,
+                valString4, valString5, valString4,
+                valString1
+        );
+        return xml;
+    }
 }

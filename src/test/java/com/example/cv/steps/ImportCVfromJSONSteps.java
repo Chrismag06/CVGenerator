@@ -18,7 +18,9 @@ import org.springframework.http.ResponseEntity;
 
 import com.example.cv.service.CvImportService;
 import com.example.cv.dto.ImportResult;
+import com.example.cv.utils.randomNames;
 
+import io.cucumber.java.Before;
 import io.cucumber.java.be.I;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -39,14 +41,13 @@ public class ImportCVfromJSONSteps {
     private ImportResult importResult; // Utilisé pour stocker le résultat de l'importation
     private String jsonPayload;
 
-    String contenuOK = """
-        {
-          "nom": "XXXXX",
-          "prenom": "Yyyyyy",
-          "email": "yyyyyy.XXXXX@zzzzz.com",
-          "competences": ["aaaaaa", "bbbbbb", "cccccc"],
-        }
-        """;
+    String contenuOK;
+    
+    @Before
+    public void setUp() {
+        contenuOK = randomNames.jsonCVAleatoire(); 
+        System.out.println("➡️ Contenu JSON valide : " + contenuOK);
+    }
 
     private File creerFichierTemporaire(String nomPrefixe, String contenu) throws IOException {
         Path temp = Files.createTempFile(nomPrefixe, ".json");
@@ -56,26 +57,23 @@ public class ImportCVfromJSONSteps {
 
     @Given("un fichier JSON valide")  
     public void un_fichier_json_valide() throws IOException{
-        String contenu = contenuOK;
-        context.put("fichier", creerFichierTemporaire("cv_valide", contenu));
+        context.put("fichier", creerFichierTemporaire("cv_valide", contenuOK));
     }
 
     @Given("un fichier JSON mal formé") 
     public void un_fichier_json_mal_formé() throws IOException{
-        String contenu = "{ nom: 'XXXXX', ,,, }";
+        String contenu = "{ nom: '" + randomNames.chaineAleatoire(5) + "', ,,, }";
         context.put("fichier", creerFichierTemporaire("cv_malforme", contenu));
     }
 
     @Given("un nom de fichier JSON incorrect")
     public void un_nom_de_fichier_json_incorrect() throws IOException{
-        String contenu = contenuOK;
-        context.put("fichier", creerFichierTemporaire("cv_invalide?.json", contenu));
+        context.put("fichier", creerFichierTemporaire("cv_invalide?.json", contenuOK));
     }
 
     @Given("aucun paramètre de nom de fichier n'est fourni")
     public void aucun_parametre_de_nom_de_fichier_n_est_fourni() throws IOException{
-        String contenu = contenuOK;
-        context.put("fichier", creerFichierTemporaire(null, contenu));
+        context.put("fichier", creerFichierTemporaire(null, contenuOK));
     }
 
     @Given("un fichier JSON vide")
@@ -87,6 +85,7 @@ public class ImportCVfromJSONSteps {
     @Given("un fichier JSON sans champ \"nom\"")
     public void un_fichier_json_sans_champ_nom() throws IOException{
         String contenu = contenuOK.replaceAll("(?m)^\\s*\"nom\"\\s*:\\s*\".*?\",?\\s*\\n?", "");
+        System.out.println("➡️ Contenu JSON sans champ nom : " + contenu);
         context.put("fichier", creerFichierTemporaire("cvSansChampNom", contenu));
     }
 
@@ -98,8 +97,9 @@ public class ImportCVfromJSONSteps {
 
     @Given("un fichier XML")
     public void un_fichier_xml() throws IOException{
-        // Code pour créer ou simuler un fichier XML
-        jsonPayload = Files.readString(Paths.get("src/test/resources/xmls/cv.xml"));
+        String contenu = randomNames.xmlCVAleatoire();
+        System.out.println("➡️ Contenu XML : " + contenu);
+        context.put("fichier", creerFichierTemporaire("cvXml", contenu));
     }
 
     @Given("un très grand fichier JSON")
