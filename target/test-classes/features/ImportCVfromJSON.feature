@@ -55,8 +55,20 @@ Feature: Importer un CV à partir d'un fichier JSON
     Then la réponse est "Erreur : délai d'import dépassé"
 
   @ImportPartiel
-  Scenario: Import partiel d’un fichier JSON avec des sections invalides
+  Scenario: Import partiel d’un fichier JSON avec des sections invalides : sans champ coordonnees
     Given un fichier JSON partiellement invalide
     When j'importe ce fichier
     Then la réponse est "Import partiel : certaines données ont été ignorées"
 
+  @ImportPartiel
+  Scenario: Import partiel d’un fichier JSON avec des sections invalides : sans champ experiences
+    Given un fichier JSON partiellement invalide
+    When j'importe ce fichier
+    Then la réponse est "Import partiel : certaines données ont été ignorées"
+
+  @ImportPartiel
+  Scenario: Import partiel d’un fichier JSON avec des sections invalides : sans champ competences
+    Given un fichier JSON partiellement invalide
+    When j'importe ce fichier
+    Then la réponse est "Import partiel : certaines données ont été ignorées"
+  

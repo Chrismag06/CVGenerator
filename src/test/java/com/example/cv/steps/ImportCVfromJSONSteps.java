@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.example.cv.service.CvImportService;
 import com.example.cv.dto.ImportResult;
+import com.example.cv.utils.JsonCleaner;
 import com.example.cv.utils.randomNames;
 
 import io.cucumber.java.Before;
@@ -40,6 +41,7 @@ public class ImportCVfromJSONSteps {
     private String actualResponse;
     private ImportResult importResult; // Utilisé pour stocker le résultat de l'importation
     private String jsonPayload;
+    
 
     String contenuOK;
     
@@ -91,10 +93,10 @@ public class ImportCVfromJSONSteps {
 
     @Given("un CV déjà présent dans la base")
     public void un_cv_deja_present_dans_la_base() throws IOException{
-        // Code pour créer ou simuler un CV déjà présent dans la base
         jsonPayload = Files.readString(Paths.get("src/test/resources/jsons/cv-deja-present.json"));
     }
 
+    //Scenario: Échec d'import d'un fichier au format non JSON
     @Given("un fichier XML")
     public void un_fichier_xml() throws IOException{
         String contenu = randomNames.xmlCVAleatoire();
@@ -102,16 +104,44 @@ public class ImportCVfromJSONSteps {
         context.put("fichier", creerFichierTemporaire("cvXml", contenu));
     }
 
+    //Scenario: Échec d'import à cause d'un dépassement de temps
     @Given("un très grand fichier JSON")
     public void un_tres_grand_fichier_json() throws IOException{
         // Code pour créer ou simuler un très grand fichier JSON
         jsonPayload = Files.readString(Paths.get("src/test/resources/jsons/cv-tres-grand.json"));
     }
 
-    @Given("un fichier JSON partiellement invalide")
-    public void un_fichier_json_partiellement_invalide() throws IOException{
-        // Code pour créer ou simuler un fichier JSON partiellement invalide
-        jsonPayload = Files.readString(Paths.get("src/test/resources/jsons/cv-partiellement-invalide.json"));
+    //Scenario: Import partiel d’un fichier JSON avec des sections invalides "coordonnees"
+    @Given("un fichier JSON partiellement invalide : sans champ coordonnees")
+    public void un_fichier_json_partiellement_invalide_coordonnees() throws IOException {
+        try {
+            String contenu = JsonCleaner.retirerCoordonnees(contenuOK, "coordonnees");
+            jsonPayload = Files.readString(Paths.get("src/test/resources/jsons/cv-partiellement-invalide.json"));
+        } catch (Exception e) {
+            throw new IOException("Error while removing coordinates from JSON content", e);
+        }
+    }
+
+    //Scenario: Import partiel d’un fichier JSON avec des sections invalides "experiences"
+    @Given("un fichier JSON partiellement invalide : sans champ experiences")
+    public void un_fichier_json_partiellement_invalide_experiences() throws IOException {
+        try {
+            String contenu = JsonCleaner.retirerCoordonnees(contenuOK, "experiences");
+            jsonPayload = Files.readString(Paths.get("src/test/resources/jsons/cv-partiellement-invalide.json"));
+        } catch (Exception e) {
+            throw new IOException("Error while removing coordinates from JSON content", e);
+        }
+    }
+
+    //Scenario: Import partiel d’un fichier JSON avec des sections invalides "competences"
+    @Given("un fichier JSON partiellement invalide : sans champ competences")
+    public void un_fichier_json_partiellement_invalide_experiences_competences() throws IOException {
+        try {
+            String contenu = JsonCleaner.retirerCoordonnees(contenuOK, "competences");
+            jsonPayload = Files.readString(Paths.get("src/test/resources/jsons/cv-partiellement-invalide.json"));
+        } catch (Exception e) {
+            throw new IOException("Error while removing coordinates from JSON content", e);
+        }
     }
  
     @When("j'importe le fichier")
