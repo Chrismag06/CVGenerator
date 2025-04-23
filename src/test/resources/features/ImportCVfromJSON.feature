@@ -56,19 +56,19 @@ Feature: Importer un CV à partir d'un fichier JSON
 
   @ImportPartiel
   Scenario: Import partiel d’un fichier JSON avec des sections invalides : sans champ coordonnees
-    Given un fichier JSON partiellement invalide
+    Given un fichier JSON partiellement invalide : sans champ "coordonnees"
     When j'importe ce fichier
     Then la réponse est "Import partiel : certaines données ont été ignorées"
 
   @ImportPartiel
   Scenario: Import partiel d’un fichier JSON avec des sections invalides : sans champ experiences
-    Given un fichier JSON partiellement invalide
+    Given un fichier JSON partiellement invalide : sans champ "experiences"
     When j'importe ce fichier
     Then la réponse est "Import partiel : certaines données ont été ignorées"
 
   @ImportPartiel
   Scenario: Import partiel d’un fichier JSON avec des sections invalides : sans champ competences
-    Given un fichier JSON partiellement invalide
+    Given un fichier JSON partiellement invalide : sans champ "competences"
     When j'importe ce fichier
     Then la réponse est "Import partiel : certaines données ont été ignorées"
   
