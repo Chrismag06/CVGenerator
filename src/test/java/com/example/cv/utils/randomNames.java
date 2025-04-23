@@ -38,6 +38,19 @@ public class randomNames {
         return json;
     }
 
+    public static String bigJsonCVAleatoire() {
+        String json;
+
+        json = "[";
+        for (int i = 0; i < 10_000; i++) {
+            json += "{\"nom\":\"Nom" + i + "\", \"email\":\"email" + i + "@test.com\"}";
+            if (i < 9999) json += ",";
+        }
+        json += "]";
+
+        return json;
+    }
+
     public static String xmlCVAleatoire() {
         String valString1 = chaineAleatoire(5);
         String valString2 = chaineAleatoire(5);
