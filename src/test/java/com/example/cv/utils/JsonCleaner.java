@@ -12,7 +12,7 @@ public class JsonCleaner {
 
         if (racine.isObject()) {
             ObjectNode objet = (ObjectNode) racine;
-            objet.remove("coordonnees"); 
+            objet.remove(toRemove); 
         }
 
         return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(racine);
