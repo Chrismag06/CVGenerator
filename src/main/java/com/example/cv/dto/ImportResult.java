@@ -8,5 +8,5 @@ import lombok.Value;
 public class ImportResult{
     boolean success;
     String message;
-    List<Object> erreurs; 
+    List<String> erreurs; 
 }
