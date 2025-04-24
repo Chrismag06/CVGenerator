@@ -1,20 +1,16 @@
 package com.example.cv.steps;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.ResponseEntity;
 
 import com.example.cv.service.CvImportService;
 import com.example.cv.dto.ImportResult;
@@ -22,7 +18,6 @@ import com.example.cv.utils.JsonCleaner;
 import com.example.cv.utils.randomNames;
 
 import io.cucumber.java.Before;
-import io.cucumber.java.be.I;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -32,37 +27,24 @@ public class ImportCVfromJSONSteps {
     private final Map<String, Object> context = new HashMap<>();
 
     @Autowired
-    private TestRestTemplate restTemplate;
-
-    @Autowired
     private CvImportService cvImportService; 
 
     //private ResponseEntity<String> response;
     private String actualResponse;
-    private ImportResult importResult; // Utilisé pour stocker le résultat de l'importation
-    private String jsonPayload;
+    private ImportResult importResult; 
     
     String contenuOK;
 
-    private void chargerJsonSansChamp(String champ) throws IOException {
-        try {
-            String contenu = JsonCleaner.retirerCoordonnees(contenuOK, champ);
-            jsonPayload = contenu;
-        } catch (Exception e) {
-            throw new IOException("Erreur lors de la suppression du champ " + champ + " dans le JSON", e);
-        }
+    private File creerFichierTemporaire(String nomPrefixe, String contenuString) throws IOException {
+        Path temp = Files.createTempFile(nomPrefixe, ".json");
+        Files.writeString(temp, contenuString, StandardCharsets.UTF_8);
+        return temp.toFile();
     }
-    
+
     @Before
     public void setUp() {
         contenuOK = randomNames.jsonCVAleatoire(); 
         System.out.println("➡️ Contenu JSON valide : " + contenuOK);
-    }
-
-    private File creerFichierTemporaire(String nomPrefixe, String contenu) throws IOException {
-        Path temp = Files.createTempFile(nomPrefixe, ".json");
-        Files.writeString(temp, contenu, StandardCharsets.UTF_8);
-        return temp.toFile();
     }
 
     @Given("un fichier JSON valide")  
@@ -101,7 +83,8 @@ public class ImportCVfromJSONSteps {
 
     @Given("un CV déjà présent dans la base")
     public void un_cv_deja_present_dans_la_base() throws IOException{
-        jsonPayload = Files.readString(Paths.get("src/test/resources/jsons/cv-deja-present.json"));
+        importResult = cvImportService.importCvFromJson(creerFichierTemporaire(null, contenuOK));
+        context.put("fichier", creerFichierTemporaire(null, contenuOK));
     }
 
     //Scenario: Échec d'import d'un fichier au format non JSON
@@ -115,26 +98,27 @@ public class ImportCVfromJSONSteps {
     //Scenario: Échec d'import à cause d'un dépassement de temps
     @Given("un très grand fichier JSON")
     public void un_tres_grand_fichier_json() throws IOException{
-        // Code pour créer ou simuler un très grand fichier JSON
-        jsonPayload = Files.readString(Paths.get("src/test/resources/jsons/cv-tres-grand.json"));
+        String contenuTresGrand = randomNames.bigJsonCVAleatoire();
+        context.put("fichier", creerFichierTemporaire("cvXml", contenuTresGrand));
     }
 
     @Given("un fichier JSON partiellement invalide : sans champ {string}")
     public void un_fichier_json_partiellement_invalide_sans_champ(String champ) throws IOException {
-        chargerJsonSansChamp(champ);
+        try {
+            String contenu = JsonCleaner.retirerCoordonnees(contenuOK, champ);
+            System.out.println("➡️ Contenu JSON sans champ nom : " + contenu);
+            context.put("fichier", creerFichierTemporaire("cvSansChamp", contenu));
+        } catch (Exception e) {
+            throw new IOException("Erreur lors de la suppression du champ " + champ + " dans le JSON", e);
+        }
     }
     
     @When("j'importe le fichier")
     public void j_importe_le_fichier() {
-
-        File fichier = (File) context.get("fichier");
-        importResult = importService.importerFichierJSON(fichier);
-
-        importResult = cvImportService.importCvFromJson(jsonPayload);
+        importResult = cvImportService.importCvFromJson((File) context.get("fichier"));
         actualResponse = importResult.getMessage(); // Récupérer le message de la réponse
-        System.out.println("➡️ Importation du fichier : " + jsonPayload);
+        System.out.println("➡️ Importation du fichier : " + (String) context.get("fichier"));
         System.out.println("⬅️ Résultat de l'importation : " + importResult);     
-
     }
 
     @Then("la réponse est {string}")

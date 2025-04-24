@@ -15,10 +15,10 @@ public class CvImportService {
     // Cette classe contiendra la logique pour traiter les fichiers JSON et les importer dans la base de données
     // Vous pouvez utiliser des bibliothèques comme Jackson ou Gson pour traiter le JSON
     // Exemple de méthode pour importer un CV à partir d'un fichier JSON
-    public ImportResult importCvFromJson(String jsonFilePath) {
+    public ImportResult importCvFromJson(File jsonFile) {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            CvData cv = mapper.readValue(new File(jsonFilePath), CvData.class);
+            CvData cv = mapper.readValue(jsonFile, CvData.class);
             return new ImportResult(true, "Importation réussie", Collections.emptyList());
         } catch (JsonParseException e) {
             return new ImportResult(false, "Erreur de format JSON", List.of(e.getMessage()));
