@@ -47,8 +47,14 @@ public class ImportCVfromJSONSteps {
     
     @Before
     public void setUp() {
-        contenuOK = randomNames.jsonCVAleatoire(); 
-        System.out.println("➡️ Contenu JSON valide : " + contenuOK);
+        try {
+            contenuOK = randomNames.jsonCVAleatoire(); 
+            System.out.println("➡️ Contenu JSON valide : " + contenuOK);
+        } catch (Exception e) {
+            System.err.println("⛔ Erreur dans setUp() : " + e.getMessage());
+            e.printStackTrace();
+            throw e; 
+        }
     }
 
     @Given("un fichier JSON valide")  

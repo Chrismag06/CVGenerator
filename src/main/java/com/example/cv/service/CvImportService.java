@@ -5,11 +5,14 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.example.cv.CvData;
 import com.example.cv.dto.ImportResult;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+@Service
 public class CvImportService {
     // Code pour le service d'importation de CV
     // Cette classe contiendra la logique pour traiter les fichiers JSON et les importer dans la base de données
