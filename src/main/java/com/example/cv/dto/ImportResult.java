@@ -2,11 +2,15 @@ package com.example.cv.dto;
 
 import java.util.List;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Value
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ImportResult{
-    boolean success;
-    String message;
-    List<String> erreurs; 
+    boolean success = false;
+    String message = "";
+    List<String> erreurs = List.of(); 
 }

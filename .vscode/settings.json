@@ -24,6 +24,6 @@
   ],
 
   "java.agentlib": [
-    "-javaagent:${user.home}/.m2/repository/org/projectlombok/lombok/1.18.26/lombok-1.18.26.jar"
+    "-javaagent:${user.home}/.m2/repository/org/projectlombok/lombok/1.18.32/lombok-1.18.32.jar"
   ]
 }
