@@ -21,6 +21,10 @@ public class CvImportService {
     // Exemple de méthode pour importer un CV à partir d'un fichier JSON
     public ImportResult importCvFromJson(File jsonFile) {
         try {
+            if (jsonFile == null || !jsonFile.exists()) {
+                return new ImportResult(false, "Erreur lors de l'importation du fichier - nom de fichier manquant", List.of());
+            }
+            
             ObjectMapper mapper = new ObjectMapper();
             CvData cv = mapper.readValue(jsonFile, CvData.class);
             return new ImportResult(true, "Importation réussie", Collections.emptyList());

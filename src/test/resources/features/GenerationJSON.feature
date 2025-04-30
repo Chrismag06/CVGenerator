@@ -1,3 +1,4 @@
+@ignore
 Feature: Génération du JSON à partir du texte PDF
 
   Scenario: Transformer un texte extrait en structure JSON

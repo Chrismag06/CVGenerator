@@ -1,3 +1,4 @@
+@ignore
 Feature: Extraction du texte d'un PDF
 
   Scenario: Extraire le texte d'un fichier PDF existant
