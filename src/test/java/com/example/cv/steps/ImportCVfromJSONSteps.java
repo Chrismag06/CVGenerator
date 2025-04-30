@@ -131,7 +131,7 @@ public class ImportCVfromJSONSteps {
     public void j_importe_le_fichier() {
         importResult = cvImportService.importCvFromJson((File) context.get(CONTEXT_FICHIER));
         actualResponse = importResult.getMessage(); // Récupérer le message de la réponse
-        System.out.println("➡️ Importation du fichier : " + (String) context.get(CONTEXT_FICHIER));
+        System.out.println("➡️ Importation du fichier : " + CONTEXT_FICHIER);
         System.out.println("⬅️ Résultat de l'importation : " + importResult);     
     }
 
