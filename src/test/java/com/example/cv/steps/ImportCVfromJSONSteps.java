@@ -70,7 +70,8 @@ public class ImportCVfromJSONSteps {
 
     @Given("un nom de fichier JSON incorrect")
     public void un_nom_de_fichier_json_incorrect() throws IOException{
-        putContext("cv_invalide?.json", contenuOK);
+        context.put("nomFichier", "cv_invalide?.json");
+        context.put("contenu", contenuOK);
     }
 
     @Given("aucun paramètre de nom de fichier n'est fourni")
