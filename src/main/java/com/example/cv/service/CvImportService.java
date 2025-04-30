@@ -29,7 +29,7 @@ public class CvImportService {
             CvData cv = mapper.readValue(jsonFile, CvData.class);
             return new ImportResult(true, "Importation réussie", Collections.emptyList());
         }catch (JsonParseException e) {
-            return new ImportResult(false, "Erreur de format JSON", List.of(e.getMessage()));
+            return new ImportResult(false, "Erreur : format de fichier non pris en charge", List.of(e.getMessage()));
         }catch (InvalidPathException e) {
             return new ImportResult(false, "Nom de fichier invalide : caractères non autorisés", List.of(e.getMessage()));
         } catch (IOException e) {
