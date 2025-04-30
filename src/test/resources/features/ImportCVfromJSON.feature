@@ -39,7 +39,7 @@ Feature: Importer un CV à partir d'un fichier JSON
   @DoublonCV
   Scenario: Échec d'import d'un CV déjà existant
     Given un CV déjà présent dans la base
-    When j'importe un fichier JSON identique
+    When j'importe le fichier
     Then la réponse de l'import est "Erreur : le CV existe déjà"
 
   @FormatInvalide

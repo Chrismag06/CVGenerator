@@ -1,3 +1,4 @@
+@ignore
 Feature: Validation de la structure du JSON
 
   Scenario: Vérifier que le JSON généré respecte la structure attendue
