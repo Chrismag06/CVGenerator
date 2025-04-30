@@ -13,10 +13,10 @@ Feature: Importer un CV à partir d'un fichier JSON
     Then la réponse de l'import est "Erreur lors de l'importation du fichier JSON mal formaté"
 
   @FichierIntrouvable
-  Scenario: Échec d'import à cause d'un nom de fichier incorrect
+  Scenario: Échec nom de fichier JSON incorrecte d'import à cause d'un nom de fichier incorrect
     Given un nom de fichier JSON incorrect
     When j'importe le fichier
-    Then la réponse de l'import est "Erreur lors de l'importation du fichier fichier introuvable"
+    Then la réponse de l'import est "Nom de fichier invalide : caractères non autorisés"
 
   @NomFichierManquant
   Scenario: Échec d'import à cause d'un nom de fichier manquant

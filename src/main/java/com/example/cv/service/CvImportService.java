@@ -2,6 +2,7 @@ package com.example.cv.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.InvalidPathException;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,13 +24,16 @@ public class CvImportService {
             ObjectMapper mapper = new ObjectMapper();
             CvData cv = mapper.readValue(jsonFile, CvData.class);
             return new ImportResult(true, "Importation réussie", Collections.emptyList());
-        } catch (JsonParseException e) {
+        }catch (JsonParseException e) {
             return new ImportResult(false, "Erreur de format JSON", List.of(e.getMessage()));
+        }catch (InvalidPathException e) {
+            return new ImportResult(false, "Nom de fichier invalide : caractères non autorisés", List.of(e.getMessage()));
         } catch (IOException e) {
             return new ImportResult(false, "Erreur de lecture du fichier", List.of(e.getMessage()));
         } catch (Exception e) {
             return new ImportResult(false, "Erreur inconnue", List.of(e.getMessage()));
-        }
+        } 
+
     }
 
 }
