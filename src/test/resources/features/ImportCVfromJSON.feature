@@ -50,7 +50,7 @@ Feature: Importer un CV à partir d'un fichier JSON
 
   @Timeout
   Scenario: Échec d'import à cause d'un dépassement de temps
-    Given un très grand fichier JSON
+    Given un très grand fichier Json
     When j'importe le fichier
     Then la réponse de l'import est "Erreur : délai d'import dépassé"
 

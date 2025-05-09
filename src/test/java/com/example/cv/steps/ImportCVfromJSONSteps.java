@@ -111,7 +111,7 @@ public class ImportCVfromJSONSteps {
     }
 
     //Scenario: Échec d'import à cause d'un dépassement de temps
-    @Given("un très grand fichier JSON")
+    @Given("un très grand fichier Json")
     public void un_tres_grand_fichier_json() throws IOException{
         String contenuTresGrand = randomNames.bigJsonCVAleatoire();
         putContext("cvXml", contenuTresGrand);
