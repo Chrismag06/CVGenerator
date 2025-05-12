@@ -2,6 +2,7 @@ package com.example.cv.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.util.Collections;
 import java.util.List;
@@ -25,9 +26,12 @@ public class CvImportService {
                 return new ImportResult(false, "Erreur lors de l'importation du fichier - nom de fichier manquant", List.of());
             }
             
+            System.out.println("➡️ Fichier JSON : " + jsonFile.toString());
+            System.out.println("➡️ Contenu du fichier JSON : " + Files.readString(jsonFile.toPath()));
+
             ObjectMapper mapper = new ObjectMapper();
             CvData cv = mapper.readValue(jsonFile, CvData.class);
-            return new ImportResult(true, "Importation réussie", Collections.emptyList());
+            return new ImportResult(true, "Importation du CV est réussie", Collections.emptyList());
         }catch (JsonParseException e) {
             return new ImportResult(false, "Erreur : format de fichier non pris en charge", List.of(e.getMessage()));
         }catch (InvalidPathException e) {

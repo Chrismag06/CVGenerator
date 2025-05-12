@@ -1,6 +1,10 @@
 package com.example.cv.utils;
 
+import java.util.List;
 import java.util.Random;
+
+import com.example.cv.CvData;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class randomNames {
 
@@ -20,22 +24,20 @@ public class randomNames {
     }
 
     public static String jsonCVAleatoire() {
-        String json = """
-        {
-          "nom": "%s",
-          "prenom": "%s",
-          "email": "%s",
-          "competences": ["%s", "%s", "%s"]
+        CvData cv = new CvData();
+        cv.name = chaineAleatoire(6);
+        cv.email = emailAleatoire();
+        cv.phone = "06" + (10000000 + random.nextInt(89999999));
+        cv.skills = List.of(chaineAleatoire(5), chaineAleatoire(5), chaineAleatoire(5));
+        cv.experience = List.of("Exp " + chaineAleatoire(4), "Exp " + chaineAleatoire(4));
+        cv.education = List.of("Diplôme " + chaineAleatoire(4));
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(cv);
+        } catch (Exception e) {
+            throw new RuntimeException("Erreur de génération du JSON", e);
         }
-        """.formatted(
-                chaineAleatoire(6),
-                chaineAleatoire(8),
-                emailAleatoire(),
-                chaineAleatoire(5),
-                chaineAleatoire(5),
-                chaineAleatoire(5)
-        );
-        return json;
     }
 
     public static String bigJsonCVAleatoire() {
