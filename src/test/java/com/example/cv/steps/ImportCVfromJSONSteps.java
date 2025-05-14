@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Assertions;
@@ -21,6 +22,8 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+
+import com.example.cv.dto.ImportResult;
 
 public class ImportCVfromJSONSteps {
 
@@ -73,9 +76,6 @@ public class ImportCVfromJSONSteps {
     public void un_nom_de_fichier_json_incorrect() throws IOException{
         context.put("nomFichier", "cv_invalide?.json");
         context.put("contenu", contenuOK);
-        File fichierInvalide;
-        // Création volontaire d'un chemin invalide (selon OS, ici ex pour Windows)
-        fichierInvalide = new File("invalid<>name.json");
     }
 
     @Given("aucun paramètre de nom de fichier n'est fourni")
@@ -134,8 +134,12 @@ public class ImportCVfromJSONSteps {
     
     @When("j'importe le fichier")
     public void j_importe_le_fichier() {
-        importResult = cvImportService.importCvFromJson((File) context.get(CONTEXT_FICHIER));
-        actualResponse = importResult.getMessage(); // Récupérer le message de la réponse
+        try{
+            importResult = cvImportService.importCvFromJson((File) context.get(CONTEXT_FICHIER));
+        } catch (Exception e) {
+            importResult = new ImportResult(false, "Erreur levée côté test", List.of(e.getMessage()));
+        }
+        //actualResponse = importResult.getMessage(); // Récupérer le message de la réponse
         System.out.println("➡️ Importation du fichier : " + CONTEXT_FICHIER);
         System.out.println("⬅️ Résultat de l'importation : " + importResult);     
     }

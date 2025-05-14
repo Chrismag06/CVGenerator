@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ImportResult{
+
     boolean success = false;
     String message = "";
     List<String> erreurs = List.of(); 
