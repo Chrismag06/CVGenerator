@@ -15,6 +15,7 @@ import com.example.cv.service.CvImportService;
 import com.example.cv.dto.ImportResult;
 import com.example.cv.utils.JsonCleaner;
 import com.example.cv.utils.randomNames;
+import com.jayway.jsonpath.InvalidPathException;
 
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
@@ -72,6 +73,9 @@ public class ImportCVfromJSONSteps {
     public void un_nom_de_fichier_json_incorrect() throws IOException{
         context.put("nomFichier", "cv_invalide?.json");
         context.put("contenu", contenuOK);
+        File fichierInvalide;
+        // Création volontaire d'un chemin invalide (selon OS, ici ex pour Windows)
+        fichierInvalide = new File("invalid<>name.json");
     }
 
     @Given("aucun paramètre de nom de fichier n'est fourni")

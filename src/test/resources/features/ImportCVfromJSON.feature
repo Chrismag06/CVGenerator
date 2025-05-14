@@ -10,10 +10,10 @@ Feature: Importer un CV à partir d'un fichier JSON
   Scenario: Échec d'import à cause d'un fichier JSON mal formé
     Given un fichier JSON mal formé
     When j'importe le fichier
-    Then la réponse de l'import est "Erreur lors de l'importation du fichier JSON mal formaté"
+    Then la réponse de l'import est "Erreur lors de l'importation : le fichier semble corrompu ou mal formé"
 
   @NomFichierIncorrect
-  Scenario: Échec nom de fichier JSON incorrecte d'import à cause d'un nom de fichier incorrect
+  Scenario: Échec d'import à cause d'un nom de fichier JSON incorrect
     Given un nom de fichier JSON incorrect
     When j'importe le fichier
     Then la réponse de l'import est "Nom de fichier invalide : caractères non autorisés"
