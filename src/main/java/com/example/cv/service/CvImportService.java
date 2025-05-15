@@ -25,7 +25,16 @@ public class CvImportService {
             if (jsonFile == null || !jsonFile.exists()) {
                 return new ImportResult(false, "Erreur lors de l'importation du fichier - nom de fichier manquant", List.of());
             }
-            
+            if (!jsonFile.getName().endsWith(".json")) {
+                System.out.println("➡️ Fichier JSON : " + jsonFile.getName());
+                System.out.println("➡️ Fichier JSON : " + jsonFile.toString());
+                System.out.println("Erreur lors de l'importation : seule l'extension .json est autorisée");
+                return new ImportResult(false, "Erreur lors de l'importation : seule l'extension .json est autorisée", List.of());
+            }
+            if (jsonFile.length() == 0) {
+                return new ImportResult(false, "Erreur : le fichier JSON est vide ou ne contient pas de données valides", List.of());
+            }
+            System.out.println("➡️ Fichier JSON : " + jsonFile.getName());
             System.out.println("➡️ Fichier JSON : " + jsonFile.toString());
             System.out.println("➡️ Contenu du fichier JSON : " + Files.readString(jsonFile.toPath()));
 

@@ -76,12 +76,12 @@ public class ImportCVfromJSONSteps {
 
     @Given("extension de fichier différent de .Json")
     public void un_nom_de_fichier_json_incorrect() throws IOException{
-        putContext("cv_invalide.xyz", SUFFIX_JSO_STRING, contenuOK);
+        putContext("cv_invalide", ".xyz", contenuOK);
     }
 
     @Given("aucun paramètre de nom de fichier n'est fourni")
     public void aucun_parametre_de_nom_de_fichier_n_est_fourni() throws IOException{
-        putContext(null, null,  contenuOK);
+        //putContext(null, null,  contenuOK);
     }
 
     @Given("un fichier JSON vide")
@@ -135,10 +135,14 @@ public class ImportCVfromJSONSteps {
     
     @When("j'importe le fichier")
     public void j_importe_le_fichier() {
-        importResult = cvImportService.importCvFromJson((File) context.get(CONTEXT_FICHIER));
-        actualResponse = importResult.getMessage(); // Récupérer le message de la réponse
-        System.out.println("➡️ Importation du fichier : " + CONTEXT_FICHIER);
-        System.out.println("⬅️ Résultat de l'importation : " + importResult);     
+        try {
+            importResult = cvImportService.importCvFromJson((File) context.get(CONTEXT_FICHIER));
+            actualResponse = importResult.getMessage(); // Récupérer le message de la réponse
+            System.out.println("➡️ Importation du fichier : " + CONTEXT_FICHIER);
+            System.out.println("⬅️ Résultat de l'importation : " + importResult);    
+        } catch (Exception e) {
+            actualResponse = e.getMessage(); // si une erreur survient
+        } 
     }
 
     @Then("la réponse de l'import est {string}")
