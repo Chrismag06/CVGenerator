@@ -10,6 +10,9 @@ public class JsonCleaner {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode racine = mapper.readTree(json);
 
+        System.out.println("➡️ Contenu JSON avant suppression : " + racine.toPrettyString());
+        System.out.println("➡️ String to remove : " + toRemove);
+
         if (racine.isObject()) {
             ObjectNode objet = (ObjectNode) racine;
             objet.remove(toRemove); 

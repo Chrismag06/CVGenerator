@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.cv.service.CvImportService;
+import com.example.cv.CvData;
 import com.example.cv.dto.ImportResult;
 import com.example.cv.utils.JsonCleaner;
 import com.example.cv.utils.randomNames;
@@ -92,8 +93,9 @@ public class ImportCVfromJSONSteps {
 
     @Given("un fichier JSON sans champ \"nom\"")
     public void un_fichier_json_sans_champ_nom() throws IOException{
+        
         try {
-            String contenu = JsonCleaner.retirerCoordonnees(contenuOK, "nom");
+            String contenu = JsonCleaner.retirerCoordonnees(contenuOK, "name");
             System.out.println("➡️ Contenu JSON sans champ nom : " + contenu);
             putContext("cvSansChampNom", SUFFIX_JSO_STRING, contenu);
         } catch (Exception e) {

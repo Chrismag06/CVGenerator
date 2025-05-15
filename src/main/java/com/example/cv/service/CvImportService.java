@@ -16,19 +16,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class CvImportService {
-    // Code pour le service d'importation de CV
-    // Cette classe contiendra la logique pour traiter les fichiers JSON et les importer dans la base de données
-    // Vous pouvez utiliser des bibliothèques comme Jackson ou Gson pour traiter le JSON
-    // Exemple de méthode pour importer un CV à partir d'un fichier JSON
+    /**
+     * Imports a CV from a JSON file.
+     *
+     * @param jsonFile the JSON file containing the CV data
+     * @return an ImportResult object indicating the success or failure of the import
+     */ 
+
     public ImportResult importCvFromJson(File jsonFile) {
         try {
             if (jsonFile == null || !jsonFile.exists()) {
                 return new ImportResult(false, "Erreur lors de l'importation du fichier - nom de fichier manquant", List.of());
             }
             if (!jsonFile.getName().endsWith(".json")) {
-                System.out.println("➡️ Fichier JSON : " + jsonFile.getName());
-                System.out.println("➡️ Fichier JSON : " + jsonFile.toString());
-                System.out.println("Erreur lors de l'importation : seule l'extension .json est autorisée");
                 return new ImportResult(false, "Erreur lors de l'importation : seule l'extension .json est autorisée", List.of());
             }
             if (jsonFile.length() == 0) {
