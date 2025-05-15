@@ -31,6 +31,8 @@ public class ImportCVfromJSONSteps {
 
     private static final String CONTEXT_FICHIER = "fichier";
 
+    private static final String SUFFIX_JSO_STRING = ".json";
+
     @Autowired
     private CvImportService cvImportService; 
 
@@ -39,14 +41,14 @@ public class ImportCVfromJSONSteps {
     
     String contenuOK;
 
-    private File creerFichierTemporaire(String nomPrefixe, String contenuString) throws IOException {
-        Path temp = Files.createTempFile(nomPrefixe, ".json");
+    private File creerFichierTemporaire(String nomPrefixe, String nomSuffix, String contenuString) throws IOException {
+        Path temp = Files.createTempFile(nomPrefixe, nomSuffix);
         Files.writeString(temp, contenuString, StandardCharsets.UTF_8);
         return temp.toFile();
     }
 
-    private void putContext(String nom, String contenu) throws IOException {
-        context.put(CONTEXT_FICHIER, creerFichierTemporaire(nom, contenu));
+    private void putContext(String nom, String nomSuffix,  String contenu) throws IOException {
+        context.put(CONTEXT_FICHIER, creerFichierTemporaire(nom, nomSuffix, contenu));
     }
     
     @Before
@@ -63,30 +65,29 @@ public class ImportCVfromJSONSteps {
 
     @Given("un fichier JSON valide")  
     public void un_fichier_json_valide() throws IOException{
-        putContext("cv_valide", contenuOK);
+        putContext("cv_valide", SUFFIX_JSO_STRING, contenuOK);
     }
 
     @Given("un fichier JSON mal formé") 
     public void un_fichier_json_mal_formé() throws IOException{
         String contenu = "{ nom: '" + randomNames.chaineAleatoire(5) + "', ,,, }";
-        putContext("cv_malforme", contenu);
+        putContext("cv_malforme", SUFFIX_JSO_STRING, contenu);
     }
 
-    @Given("un nom de fichier JSON incorrect")
+    @Given("extension de fichier différent de .Json")
     public void un_nom_de_fichier_json_incorrect() throws IOException{
-        context.put("nomFichier", "cv_invalide?.json");
-        context.put("contenu", contenuOK);
+        putContext("cv_invalide.xyz", SUFFIX_JSO_STRING, contenuOK);
     }
 
     @Given("aucun paramètre de nom de fichier n'est fourni")
     public void aucun_parametre_de_nom_de_fichier_n_est_fourni() throws IOException{
-        putContext(null, contenuOK);
+        putContext(null, null,  contenuOK);
     }
 
     @Given("un fichier JSON vide")
     public void un_fichier_json_vide() throws IOException{
         String contenu = "";
-        putContext("cv_vide", contenu);
+        putContext("cv_vide", SUFFIX_JSO_STRING,  contenu);
     }
 
     @Given("un fichier JSON sans champ \"nom\"")
@@ -94,7 +95,7 @@ public class ImportCVfromJSONSteps {
         try {
             String contenu = JsonCleaner.retirerCoordonnees(contenuOK, "nom");
             System.out.println("➡️ Contenu JSON sans champ nom : " + contenu);
-            putContext("cvSansChampNom", contenu);
+            putContext("cvSansChampNom", SUFFIX_JSO_STRING, contenu);
         } catch (Exception e) {
             throw new IOException("Erreur lors de la suppression du champ nom dans le JSON", e);
         }
@@ -102,8 +103,8 @@ public class ImportCVfromJSONSteps {
 
     @Given("un CV déjà présent dans la base")
     public void un_cv_deja_present_dans_la_base() throws IOException{
-        importResult = cvImportService.importCvFromJson(creerFichierTemporaire(null, contenuOK));
-        putContext(null, contenuOK);
+        importResult = cvImportService.importCvFromJson(creerFichierTemporaire(null, SUFFIX_JSO_STRING, contenuOK));
+        putContext(null, SUFFIX_JSO_STRING,  contenuOK);
     }
 
     //Scenario: Échec d'import d'un fichier au format non JSON
@@ -111,14 +112,14 @@ public class ImportCVfromJSONSteps {
     public void un_fichier_xml() throws IOException{
         String contenu = randomNames.xmlCVAleatoire();
         System.out.println("➡️ Contenu XML : " + contenu);
-        putContext("cvXml", contenu);
+        putContext("cvXml",SUFFIX_JSO_STRING,  contenu);
     }
 
     //Scenario: Échec d'import à cause d'un dépassement de temps
     @Given("un très grand fichier Json")
     public void un_tres_grand_fichier_json() throws IOException{
         String contenuTresGrand = randomNames.bigJsonCVAleatoire();
-        putContext("cvXml", contenuTresGrand);
+        putContext("cvXml", SUFFIX_JSO_STRING, contenuTresGrand);
     }
 
     @Given("un fichier JSON partiellement invalide : sans champ {string}")
@@ -126,7 +127,7 @@ public class ImportCVfromJSONSteps {
         try {
             String contenu = JsonCleaner.retirerCoordonnees(contenuOK, champ);
             System.out.println("➡️ Contenu JSON sans champ nom : " + contenu);
-            putContext("cvSansChamp", contenu);
+            putContext("cvSansChamp",SUFFIX_JSO_STRING,  contenu);
         } catch (Exception e) {
             throw new IOException("Erreur lors de la suppression du champ " + champ + " dans le JSON", e);
         }
@@ -134,12 +135,8 @@ public class ImportCVfromJSONSteps {
     
     @When("j'importe le fichier")
     public void j_importe_le_fichier() {
-        try{
-            importResult = cvImportService.importCvFromJson((File) context.get(CONTEXT_FICHIER));
-        } catch (Exception e) {
-            importResult = new ImportResult(false, "Erreur levée côté test", List.of(e.getMessage()));
-        }
-        //actualResponse = importResult.getMessage(); // Récupérer le message de la réponse
+        importResult = cvImportService.importCvFromJson((File) context.get(CONTEXT_FICHIER));
+        actualResponse = importResult.getMessage(); // Récupérer le message de la réponse
         System.out.println("➡️ Importation du fichier : " + CONTEXT_FICHIER);
         System.out.println("⬅️ Résultat de l'importation : " + importResult);     
     }
